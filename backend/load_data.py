@@ -16,7 +16,7 @@ def get_raw_data():
 class LoadData(BaseJob):
     # Step 2: override either post_loop (single or limited tasks) or load_items + process_item (many tasks in batch)  
     def post_loop(self, run_date: datetime):
-        df = pd.DataFrame(raw_data['data']['rows'])
+        df = pd.DataFrame(get_raw_data['data']['rows'])
         df.set_index('symbol', inplace=True)
         df.drop(columns=['url'], inplace=True)
         df['lastsale'] = df['lastsale'].apply(lambda x: float(str(x).replace('$', '')) if x else 0.0)
